@@ -22,6 +22,7 @@ class Browsershot
     protected $noSandbox = false;
     protected $proxyServer = '';
     protected $showBackground = false;
+    protected $preferCSSPageSize = false;
     protected $showScreenshotBackground = true;
     protected $screenshotType = 'png';
     protected $screenshotQuality = null;
@@ -281,6 +282,13 @@ class Browsershot
     public function fullPage()
     {
         return $this->setOption('fullPage', true);
+    }
+    
+    public function preferCSSPageSize()
+    {
+        $this->preferCSSPageSize = true;
+
+        return $this;
     }
 
     public function showBackground()
@@ -621,6 +629,10 @@ class Browsershot
 
         if ($this->showBackground) {
             $command['options']['printBackground'] = true;
+        }
+
+        if ($this->preferCSSPageSize) {
+            $command['options']['preferCSSPageSize'] = true;
         }
 
         return $command;
